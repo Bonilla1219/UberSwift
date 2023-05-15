@@ -25,7 +25,7 @@ struct HomeView: View {
                         }
                     }
             } else {
-                LocationSearchView()
+                LocationSearchView(showLocationSearchView: $showLocationSearchView)
             }
             
             MapViewActionButton(showLocationSearchView: $showLocationSearchView)

@@ -13,6 +13,7 @@ import MapKit
 struct UberMapViewRepresentable: UIViewRepresentable {
     let mapView = MKMapView()
     let locationManager = LocationManager()
+    @EnvironmentObject var locationViewModel:LocationSearchViewModel
     
     //setting mapView settings
     //this function shows our map view while the delegate implements the aactuall features
@@ -29,6 +30,9 @@ struct UberMapViewRepresentable: UIViewRepresentable {
     //used to update the view when user chooses where they want to go
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
+        if let coordinate = locationViewModel.selectedLocationCoordinate{
+            print("DEBUG: Selected location in map view is \(coordinate)")
+        }
         
     }
     

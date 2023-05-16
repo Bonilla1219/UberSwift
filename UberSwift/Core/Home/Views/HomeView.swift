@@ -9,26 +9,26 @@ import SwiftUI
 
 struct HomeView: View {
     //setting variable that will show the search view
-    @State private var showLocationSearchView = false
+    @State private var mapState = MapViewState.noInput
     var body: some View {
         //placing into a Zstack allows us to add the search view at the top
         ZStack(alignment: .top) {
-            UberMapViewRepresentable()
+            UberMapViewRepresentable(mapState: $mapState)
                 .ignoresSafeArea()
             
-            if !showLocationSearchView{
+            if mapState == .noInput{
                 LocationSearchActivationView()
                     .padding(.top, 72)
                     .onTapGesture{
                         withAnimation(.spring()){
-                            showLocationSearchView.toggle()
+                            mapState = .searchingForLocation
                         }
                     }
-            } else {
-                LocationSearchView(showLocationSearchView: $showLocationSearchView)
+            } else if mapState == .searchingForLocation{
+                LocationSearchView(mapState: $mapState)
             }
             
-            MapViewActionButton(showLocationSearchView: $showLocationSearchView)
+            MapViewActionButton(mapState: $mapState)
                 .padding(.leading)
                 .padding(.top, 4)
         }
